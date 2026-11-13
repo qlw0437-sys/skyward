@@ -1,0 +1,54 @@
+[device]
+codename = "onyx"
+brand = "Redmi"
+model = "REDMI Turbo 4 Pro"
+ab = true
+soc = { hans = "第四代骁龙®8s移动平台", hant = "Snapdragon® 8s Gen 4 行動平台", en = "Snapdragon® 8s Gen 4 Mobile Platform" }
+os_version_prop = "ro.mi.os.version.incremental"
+
+[display]
+# The panel's own mode: 1280 by 2772 (1.5K display)
+# Matches the o10u video mode dsc dsi panel in onyx_overlay.dts
+width = 1280
+height = 2772
+density = 480
+
+[modules]
+sources = ["vendor_boot", "vendor_dlkm", "vendor", "system_dlkm"]
+load = ["novatek_ts_spi"]
+
+[touch]
+writes = [{ path = "/sys/class/touch/touch_dev/enable_touch_raw", value = "0" }]
+
+[[service]]
+path = "/vendor/bin/sh"
+args = ["/vendor/bin/init.kernel.post_boot.sh"]
+libraries = ["/system/lib64", "/vendor/lib64"]
+oneshot = true
+user = "root"
+groups = ["root", "system", "wakelock", "graphics"]
+
+[wlan]
+modules = ["rfkill", "qca_cld3_kiwi"]
+writes = [{ path = "/sys/kernel/cnss/fs_ready", value = "1" }]
+firmware = [
+    { name = "wlan/qca_cld/kiwi/WCNSS_qcom_cfg.ini", path = "/vendor/etc/wifi/kiwi/WCNSS_qcom_cfg.ini" },
+    { name = "wlan/qca_cld/kiwi/wlan_mac.bin", partition = "persist", path = "wlan/wlan_mac.bin" },
+]
+interface = "wlan0"
+supplicant = "/vendor/bin/hw/wpa_supplicant"
+libraries = ["/system/lib64", "/vendor/lib64"]
+service = "android.hardware.wifi.supplicant.ISupplicant/default"
+probe = "http://connect.rom.miui.com/generate_204"
+
+[update]
+server = "https://update.miui.com/updates/miotaV3.php"
+
+[stock]
+version = "OS2.0.216.0.VOLCNXM"
+recovery = "e00171fd6be545f9c0301a0ac35abdd7ba4d3c20aeb05f6b9bc190090fb669a7"
+
+[haptics]
+resonance = "/sys/class/qcom-haptics/lra_frequency_hz"
+strength = { lightest = 0.25, strongest = 0.75 }
+
