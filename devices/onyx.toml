@@ -48,7 +48,3 @@ server = "https://update.miui.com/updates/miotaV3.php"
 version = "OS2.0.216.0.VOLCNXM"
 package = "https://bkt-sgp-miui-ota-update-alisgp.oss-ap-southeast-1.aliyuncs.com/OS2.0.216.0.VOLCNXM/onyx-ota_full-OS2.0.216.0.VOLCNXM-user-15.0-6e1ac7510e.zip"
 recovery = "e00171fd6be545f9c0301a0ac35abdd7ba4d3c20aeb05f6b9bc190090fb669a7"
-
-[haptics]
-resonance = "/sys/class/qcom-haptics/lra_frequency_hz"
-strength = { lightest = 0.25, strongest = 0.75 }
